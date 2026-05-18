@@ -114,7 +114,6 @@ Replace `figure8` with `circle` or `moving` to view another target trajectory.
 - Demo video: `demo.mp4`
 - Overview: `overview.png`
 - System design: `system_design.png`
-- PDF summary: `README.pdf`
 
 ## Headline Results
 
