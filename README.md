@@ -17,7 +17,7 @@ p_desired = p_desired(t)
 The controller uses PPO as a learned residual policy on top of a small damped-Jacobian Cartesian prior. The prior gives the arm a stable local tracking direction, while PPO learns the residual joint command needed for smoothness, delay compensation, noise robustness, joint-limit behavior, and target-mismatch
 handling.
 
-This design keeps reinforcement learning central while making the controller more stable, sample-efficient, and easier to debug under realistic perturbations.
+This design keeps reinforcement learning central while making the controller more stable and easier to debug under realistic perturbations.
 
 ## Demo Video
 
