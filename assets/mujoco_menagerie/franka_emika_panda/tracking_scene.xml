@@ -1,0 +1,35 @@
+<mujoco model="official_franka_panda_tracking">
+  <include file="mjx_panda.xml"/>
+
+  <option timestep="0.002" iterations="8" ls_iterations="8" integrator="implicitfast">
+    <flag eulerdamp="disable"/>
+  </option>
+
+  <statistic center="0.45 0 0.45" extent="1.2"/>
+
+  <visual>
+    <global offwidth="1920" offheight="1080" azimuth="135" elevation="-25"/>
+    <headlight diffuse="0.65 0.65 0.65" ambient="0.35 0.35 0.35" specular="0 0 0"/>
+    <rgba haze="0.12 0.14 0.16 1"/>
+    <quality shadowsize="2048"/>
+  </visual>
+
+  <asset>
+    <texture type="skybox" builtin="gradient" rgb1="0.24 0.32 0.38" rgb2="0 0 0" width="512" height="3072"/>
+    <texture type="2d" name="tracking_ground" builtin="checker" mark="edge"
+      rgb1="0.18 0.20 0.22" rgb2="0.10 0.12 0.14" markrgb="0.65 0.68 0.70"
+      width="300" height="300"/>
+    <material name="tracking_ground" texture="tracking_ground" texuniform="true" texrepeat="6 6" reflectance="0.18"/>
+  </asset>
+
+  <worldbody>
+    <light name="tracking_key" pos="0.8 -1.1 1.9" dir="-0.45 0.55 -1" directional="true"/>
+    <light name="tracking_fill" pos="-1.0 1.1 1.2" dir="0.55 -0.45 -1" diffuse="0.25 0.25 0.25"/>
+    <geom name="floor" type="plane" size="1.8 1.8 0.05" material="tracking_ground"/>
+    <geom name="workspace_disk" type="cylinder" size="0.52 0.001" pos="0.48 0 0.30"
+      rgba="0.25 0.45 0.55 0.08" contype="0" conaffinity="0"/>
+    <camera name="overview" pos="1.45 -1.45 1.08" xyaxes="0.72 0.69 0 -0.34 0.35 0.87"/>
+
+    <!-- TRACE_MARKERS -->
+  </worldbody>
+</mujoco>

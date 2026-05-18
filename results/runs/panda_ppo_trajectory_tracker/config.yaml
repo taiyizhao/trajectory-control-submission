@@ -1,0 +1,116 @@
+project:
+  name: franka_panda_balanced_smooth_ft
+  description: Smoothness-oriented fine-tuning config for the official MuJoCo Menagerie
+    Franka Panda PPO trajectory tracker.
+env:
+  model_path: assets/mujoco_menagerie/franka_emika_panda/tracking_scene.xml
+  ee_site_name: gripper
+  home_qpos:
+  - 0.367302
+  - 0.109608
+  - -0.246026
+  - -1.79784
+  - -0.63458
+  - 1.995074
+  - -0.15791
+  extra_ctrl:
+  - 0.04
+  fixed_joint_qpos:
+    finger_joint1: 0.04
+    finger_joint2: 0.04
+  trajectory_type: mixed
+  trajectory_types:
+  - circle
+  - figure8
+  - moving
+  randomize_trajectory: true
+  align_trajectory_start_to_ee: true
+  trajectory_center:
+  - 0.5
+  - 0.0
+  - 0.42
+  trajectory_radius: 0.12
+  trajectory_y_radius: 0.1
+  trajectory_z_amplitude: 0.055
+  trajectory_frequency: 0.16
+  episode_steps: 500
+  frame_skip: 10
+  control_mode: joint_delta
+  action_scale: 0.035
+  action_filter_alpha: 0.65
+  ik_damping: 0.045
+  nullspace_gain: 0.0
+  max_joint_delta: 0.055
+  cartesian_feedforward_gain: 1.0
+  cartesian_feedback_gain: 0.0
+  orientation_constraint:
+    enabled: true
+    reference: gripper_down
+    include_in_observation: true
+    feedback_gain: 2.0
+  preview_steps:
+  - 1
+  - 4
+  - 8
+  - 16
+  observation_noise_std: 0.003
+  action_noise_std: 0.015
+  action_delay_steps: 1
+  unreachable_prob: 0.1
+  trace_points: 90
+  render_width: 1280
+  render_height: 720
+  camera: overview
+  position_alpha: 85.0
+  velocity_beta: 8.0
+  large_error_threshold: 0.32
+  success_threshold: 0.055
+reward:
+  position: 4.0
+  velocity_tracking: 0.85
+  position_error: 1.5
+  phase_lag: 1.25
+  action_magnitude: 0.01
+  action_smoothness: 0.12
+  action_jerk: 0.06
+  joint_velocity: 0.006
+  joint_limit: 0.07
+  orientation: 0.24
+  large_error: 5.0
+train:
+  seed: 42
+  total_timesteps: 500000
+  n_envs: 4
+  vec_env: dummy
+  device: auto
+  normalize: true
+  learning_rate: 3.0e-05
+  n_steps: 1024
+  batch_size: 256
+  n_epochs: 10
+  gamma: 0.985
+  gae_lambda: 0.94
+  clip_range: 0.15
+  ent_coef: 0.001
+  vf_coef: 0.5
+  max_grad_norm: 0.5
+  policy_hidden_sizes:
+  - 256
+  - 256
+  - 128
+  eval_freq: 10000
+  checkpoint_freq: 50000
+eval:
+  episodes: 3
+  deterministic: true
+  profiles:
+  - clean
+  - obs_noise
+  - action_delay
+  - action_noise
+  - unreachable
+  - combined
+video:
+  fps: 50
+  seconds: 20
+  trajectory_type: figure8
