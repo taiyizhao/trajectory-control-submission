@@ -21,7 +21,7 @@ This is not a pure inverse-kinematics tracker. The Jacobian term is a small stab
 The demo video shows the trained policy tracking a dynamic target trajectory
 in MuJoCo.
 
-[Watch the demo video](demo.mp4)
+https://github.com/user-attachments/assets/c8ce0f2f-60f0-49ba-97dc-14ee8c1c3664
 
 ## Results Overview
 
